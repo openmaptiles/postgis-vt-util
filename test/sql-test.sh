@@ -116,7 +116,7 @@ tf MercLength "ST_GeomFromText('LINESTRING(0 8500000, 10000 8500000)', 900913)" 
 
 # OrientedEnvelope (results differ from postgis 2 to 3)
 oriented_envelope_expect="POLYGON((8 12,10 10,0 0,-2 2,8 12))"
-if [ "${POSTGIS_VERSION}" -eq "3" ]
+if [ "${POSTGIS_VERSION}" = "3" ]
 then
     oriented_envelope_expect="POLYGON((2.308 -1.538,0 0,8 12,10.308 10.462,2.308 -1.538))"
 fi
