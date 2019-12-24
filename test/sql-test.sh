@@ -114,11 +114,15 @@ tf MercLength "ST_GeomFromText('LINESTRING(0 0, 10000 0)', 900913)" \
 tf MercLength "ST_GeomFromText('LINESTRING(0 8500000, 10000 8500000)', 900913)" \
     "4932.24215371697"
 
-# OrientedEnvelope
-tf ST_AsText "ST_SnapToGrid(ST_Centroid(OrientedEnvelope(ST_GeomFromText('LINESTRING(0 0, 10 10, 8 12)'))),0.001)" \
-    "POINT(5.154 5.231)"
-tf round "ST_Area(ST_OrientedEnvelope(ST_GeomFromText('LINESTRING(0 0, 10 10, 8 12)')))::numeric" "4" \
-    "40.0000"
+# OrientedEnvelope (results differ from postgis 2 to 3)
+oriented_envelope_expect="POLYGON((8 12,10 10,0 0,-2 2,8 12))"
+if [ "${POSTGIS_VERSION}" -eq "3" ]
+then
+    oriented_envelope_expect="POLYGON((2.308 -1.538,0 0,8 12,10.308 10.462,2.308 -1.538))"
+fi
+
+tf ST_AsText "ST_SnapToGrid(OrientedEnvelope(ST_GeomFromText('LINESTRING(0 0, 10 10, 8 12)')),0.001)" \
+    "${oriented_envelope_expect}"
 
 # Sieve
 tf ST_AsText "Sieve(ST_GeomFromText('MULTIPOLYGON(\
