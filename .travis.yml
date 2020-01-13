@@ -36,3 +36,4 @@ script:
   - sudo psql -U postgres -d testing_postgis_vt_util -c "select version()"
   - sudo psql -U postgres -d testing_postgis_vt_util -c "select postgis_version()"
   - npm test
+
