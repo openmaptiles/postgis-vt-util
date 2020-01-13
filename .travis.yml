@@ -21,6 +21,7 @@ jobs:
     - env: POSTGRESQL_VERSION="12" POSTGIS_VERSION="3"
 
 script:
+  - set -e
   - sudo service postgresql stop;
   - sudo apt-get remove postgresql* -y
   - sudo apt-get install -y --allow-unauthenticated --no-install-recommends --no-install-suggests postgresql-$POSTGRESQL_VERSION postgresql-client-$POSTGRESQL_VERSION postgresql-server-dev-$POSTGRESQL_VERSION postgresql-common
