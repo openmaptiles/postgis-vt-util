@@ -12,7 +12,7 @@ __Returns:__ `integer`
 create or replace function CleanInt (i text) returns integer as
 $func$
 select case
-            when test[1] in ('', '.') then null
+            when test[1] in ('', '.', '-') then null
             else
                 case
                     when cast(test[1] as numeric) > 2147483647 then null
@@ -27,7 +27,7 @@ from (
     ) t
 ) _;
 $func$
-language sql 
+language sql
 strict immutable cost 50
 parallel safe;
 

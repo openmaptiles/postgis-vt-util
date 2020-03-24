@@ -47,6 +47,7 @@ tf "" "select array_agg(i) from \
 # CleanInt
 tf CleanInt "'.'"              "\\N"
 tf CleanInt "''"               "\\N"
+tf CleanInt "'-'"              "\\N"
 tf CleanInt "'foobar'"         "\\N"
 tf CleanInt "'9999999999'"     "\\N"  # out of range, returns null
 tf CleanInt "'-2147483649'"    "\\N"  # one less than the smallest possible int
@@ -59,6 +60,7 @@ tf CleanInt "'  456.789  '"    "457"  # round up with trimming
 # CleanNumeric
 tf CleanNumeric "'.'"              "\\N"
 tf CleanNumeric "''"               "\\N"
+tf CleanNumeric "'-'"              "\\N"
 tf CleanNumeric "'foobar'"         "\\N"
 tf CleanNumeric "'9999999999'"     "9999999999"
 tf CleanNumeric "'-9999999999'"    "-9999999999"

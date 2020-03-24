@@ -12,7 +12,7 @@ __Returns:__ `numeric`
 create or replace function CleanNumeric (i text) returns numeric as
 $func$
 select case
-            when test[1] in ('', '.') then null
+            when test[1] in ('', '.', '-') then null
             else cast(cast(test[1] as float) as numeric)
         end as result
 from (
@@ -22,7 +22,7 @@ from (
     ) t
 ) _;
 $func$
-language sql 
+language sql
 strict immutable cost 50
 parallel safe;
 
