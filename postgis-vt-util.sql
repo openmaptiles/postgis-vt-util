@@ -50,7 +50,7 @@ __Returns:__ `integer`
 create or replace function CleanInt (i text) returns integer as
 $func$
 select case
-            when test[1] in ('', '.', '-') then null
+            when test[1] in ('', '.', '-', '+') then null
             else
                 case
                     when cast(test[1] as numeric) > 2147483647 then null
@@ -83,7 +83,7 @@ __Returns:__ `numeric`
 create or replace function CleanNumeric (i text) returns numeric as
 $func$
 select case
-            when test[1] in ('', '.', '-') then null
+            when test[1] in ('', '.', '-', '+') then null
             else cast(cast(test[1] as float) as numeric)
         end as result
 from (
